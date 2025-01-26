@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, CardBody, CardHeader, Form, FormGroup, Input, Label } from "reactstrap";
 
 const InitialValues = {
@@ -6,16 +6,54 @@ const InitialValues = {
     password: "",
 }
 
+const errorMessages = {
+    email: "Geçerli bir email adresi giriniz",
+    password: "En az 8 karakter, en az bir büyük harf, en az bir küçük harf ve sembol içermelidir",
+}
+
 export default function Login() {
     const [formData, setFormData] = useState(InitialValues)
+    const [errors, setErrors] = useState({
+        email: false,
+        password: false,
+    })
+    const [isValid, setIsValid] = useState(false)
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+
+    useEffect(() => {
+        if (emailRegex.test(formData.email) && passwordRegex.test(formData.password)) {
+            setIsValid(true)
+        } else {
+            setIsValid(false)
+        }
+    }, [formData])
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
+
+        if (name == "email") {
+            if (emailRegex.test(value)) {
+                setErrors({ ...errors, [name]: false })
+            } else {
+                setErrors({ ...errors, [name]: true })
+            }
+        }
+
+        if (name == "password") {
+            if (passwordRegex.test(value)) {
+                setErrors({ ...errors, [name]: false })
+            } else {
+                setErrors({ ...errors, [name]: true })
+            }
+        }
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
 
     }
 
