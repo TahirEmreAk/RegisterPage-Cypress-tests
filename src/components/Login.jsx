@@ -6,7 +6,7 @@ const InitialValues = {
     password: "",
 }
 
-const errorMessages = {
+export const errorMessages = {
     email: "Geçerli bir email adresi giriniz",
     password: "En az 8 karakter, en az bir büyük harf, en az bir küçük harf ve sembol içermelidir",
 }
@@ -79,8 +79,9 @@ export default function Login() {
                             onChange={handleChange}
                             value={formData.email}
                             invalid={errors.email}
+                            data-cy="email-input"
                         />
-                        {errors.email && <FormFeedback>
+                        {errors.email && <FormFeedback data-cy="error-message">
                             {errorMessages.email}
                         </FormFeedback>}
                     </FormGroup>
@@ -96,19 +97,20 @@ export default function Login() {
                             onChange={handleChange}
                             value={formData.password}
                             invalid={errors.password}
+                            data-cy="password-input"
                         />
-                        {errors.password && <FormFeedback>
+                        {errors.password && <FormFeedback data-cy="error-message">
                             {errorMessages.password}
                         </FormFeedback>}
                     </FormGroup>
                     <FormGroup check>
-                        <Input type="checkbox" checked={isCheckboxChecked} onChange={handleCheckboxChange} />
+                        <Input type="checkbox" checked={isCheckboxChecked} onChange={handleCheckboxChange} data-cy="check-control" />
                         {' '}
                         <Label check>
                             Şartları Kabul Ediyorum
                         </Label>
                     </FormGroup>
-                    <Button disabled={!isValid || !isCheckboxChecked}>Giriş Yap</Button>
+                    <Button disabled={!isValid || !isCheckboxChecked} data-cy="submit-button">Giriş Yap</Button>
                 </Form>
             </CardBody>
         </Card>
