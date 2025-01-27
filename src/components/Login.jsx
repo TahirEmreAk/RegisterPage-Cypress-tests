@@ -104,9 +104,9 @@ export default function Login() {
                         </FormFeedback>}
                     </FormGroup>
                     <FormGroup check>
-                        <Input type="checkbox" checked={isCheckboxChecked} onChange={handleCheckboxChange} data-cy="check-control" />
+                        <Input type="checkbox" id="ok" checked={isCheckboxChecked} onChange={handleCheckboxChange} data-cy="check-control" />
                         {' '}
-                        <Label check>
+                        <Label check htmlFor="ok">
                             Şartları Kabul Ediyorum
                         </Label>
                     </FormGroup>
